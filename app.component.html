@@ -1,0 +1,62 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="row">
+  <div class="col-md-4">
+  Module Name:
+
+  </div>
+  <div class="col-md-4">
+     Screen Name:
+    
+      </div>
+      <div class="col-md-4">
+          Module:
+        
+          </div>
+</div>
+<div  class="row">
+  <div class="col-md-4">
+  <p-dropdown [options]="module" (onChange)="moduleChange()" [(ngModel)]="selectedModule" placeholder="--Select--" optionLabel="name" [showClear]="true"></p-dropdown>
+  </div>
+  <div class="col-md-4">
+  <p-dropdown [options]="screens" [(ngModel)]="selectedScreens" placeholder="--Select--" optionLabel="screenName"></p-dropdown>
+  </div> <div class="col-md-4">
+  <p-dropdown [options]="module" [(ngModel)]="selectedCity" placeholder="--Select--" optionLabel="name" [showClear]="true"></p-dropdown>
+</div>
+</div>
+Screens Impacted:
+<div>
+<select multiple (change)="screenChanged($event.target)">
+  <option *ngFor="let screen of screenAffected" value="{{screen.screenName}}" ngDefaultControl>{{screen.screenName}}</option>
+</select>
+</div>
+<div class="row">
+  <div class="col-md-8"></div>
+  <div class="col-md-2"><button (click)="addNew()" class="col-md-offset-2">Add New</button><button>Update</button></div>
+  <div class="col-md-2"></div>
+</div>
+<br>
+<div>
+  <p-table [value]="Rows">
+    <ng-template pTemplate="header">
+        <tr>
+            <th><input type="checkbox" (click)="All($event)"></th>
+            <th>S.No</th>
+            <th>Module Name</th>
+            <th>Screen</th>
+            <th>Screens Impacted</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row let-i="rowIndex">
+        <tr>
+          <td><input type="checkbox" [(ngModel)]="row.checked"></td>
+          <td>{{i+1}}</td>
+            <td>{{row.ModuleName.name}}</td>
+            <td>{{row.Screen.screenName}}</td>
+            <td><span *ngFor="let screen of row.ScreensAffected; let in=index">{{in+1}}) {{screen.screenName}}<br></span></td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+<br>
+<div class="row"><div class="col-md-7"></div><div class="col-md-5"><button (click)="removeRows()">Delete</button></div></div>
+<router-outlet></router-outlet>
